@@ -1,4 +1,5 @@
-命令行不用每次输入密码：     可以参考 https://git-scm.com/docs/gitcredentials 
+   git笔记
+命令行不用每次输入密码：     可以参考 https://git-scm.com/docs/gitcredentials 
 git config credential.helper store
 		
 # git clone  默认会下载项目的完整历史版本    
