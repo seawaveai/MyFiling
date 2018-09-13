@@ -1,0 +1,112 @@
+##实力才最重要, 不要放弃提升能力的动力.
+------------------------------------------------
+##查看签名的信息：keytool -list -v -keystore  <keystore的文件名>    输密码/默认android
+在libs下新建armeabi目录存放so文件。armeabi和armeabi-v7a文件夹的区别。
+------------------------------------------------
+##studio的应用随记:
+	*. 不要使用之前的androidSdk，模拟器可以用eclipse的（不能用as开起）
+	*. 配置：1.jdk 2.studio的Sdk 3.genymotion
+	*. 编码：File encoding(utf-8)，三个地方和勾选
+	*. 把svn去掉勾。
+	*. 删除junit
+	*. Gradle home = bin/gradle目录  /  offline work = 有时构建的时候用到的jar包
+	*. Appearance->Nname-设置中文字体,否则乱码
+	*. 编译的compileSdkVersion和buildToolsVersion要放在Module下.
+	
+	*. as的2个目录:1.config:用户配置文件 2.system:运行时生成的缓存环境3.restart:不用关心(此文件不一定有)。
+	*. 安装目录里：
+		1. idea.properties 配置文件 / studio64.exe.vmoptions是64位as运行时的堆内存/
+		2. gradle-2.4  gradle所在的文件夹 / m2repository仓库中定义了一些运行需要的jar
+		
+	*.针对Gradle的一些配置
+		* GRADLE_HOME -->指向gradle的目录-->必须配置(...AndroidStudio1.5\gradle\gradle-2.8)
+		* path-->%GRADLE_HOME%\bin;-->必须配置(好执行gradle下bin的命令)，验证：gradle -v
+		* 可选配置：GRADLE_USER_HOME-->默认指向C:\Users\dell5420ahl\.gradle文件夹所在的目录（可配置到其他盘）,这是gradle构建时的缓存，文件会越来越大。
+
+	*.JRebel插件可以热部署，2.0之后有闪电部署。
+	*.如何知道自己电脑里面有哪些v4,v7,v13版本:`{android sdk}\extras\android\m2repository\com\android\support`
+	*.checkout下来的工程,如果没有`.idea`,as会把它当成一个普通的文件夹,关闭之后,重新导入即可
+	
+	* ignore添加忽略列表-->使用小乌龟
+		* .gradle
+		* .idea
+		* build
+		* .iml
+		* local.propeties
+		* module里面的build 和.iml
+------------------------------------		 
+##版本控制
+1.权限/提交记录/统一控制/代码merge/工作量统计/源码版本的记录/
+2.那些类型:cvs/svn/git/clearCase/vss
+3.搭建服务器
+	virtualBox有文件共享的插件/设置共享文件夹也可以(映射网络驱动器).
+	局域网中的机器,要想能够ping得通,必须处于同一个网关中,并且IP不能重复;ipconfig把ip地址搞到一个网段中.
+	连接方式:网络地址转换(NAT); 桥接网卡方式(选一个自己本地的网卡).
+	改成同一网段,ping 时注意要关闭防火墙.
+	
+	SVN是Subversion的简称,是集中版本控制系统,服务器挂了就不能提交代码.
+	visualsvn服务器可以下载,有个人版和企业版.
+	安装图像化工具,提交代码.TortoiseSVN下载.
+	拿URL进行checkout初始化,之后都是update.
+	?图标是否纳入版本控制中/add/+图标是已经纳入/commit/勾图标,表示提交成功/!表示修改了.
+	版本库的备份和还原.
+	遇到冲突时,进行meger
+	每次提交的时候都要说明,最好用英文写.
+	
+	git 分布式版本控制系统,checkout/pull commit push(每台电脑都可以成为服务器)
+		开源项目,提交代码要帐号,下载不需要
+		开发者提交的代码会变成补丁包,发给主开发者,然后由主开发者push到github上去.
+ ----------------------------------------------------	
+使用Eclipse搭建学习环境 Eclipse编码集要使用UTF-8
+	1. 安装SDK,直接解压Zip包,**解压目录一定不能有空格!!!**
+	2. 直接解压Eclipse,并配置JDK路径.
+	3. 打开Eclipse--Help--Install New Software--Add--Archive(选择你本地的ADT插件的位置,ADT可不用解压).
+	4. 也可以安装集成的ADT的eclipse.
+	5. 设置SDK路径Windows--Preferences--Android.
+	6. 配置sdk\platform-tools的adb.exe路径
+----------------------------------------------------	
+Tomcat的启动.(Tomcat在JavaEE中的配置.)
+	1. 配置JAVA_HOME环境变量,jdk安装的根目录,是%JAVA_HOME%;
+	2. 配置CATALINA_HOME环境变量,tomcat的根目录.如:CATALINA_HOME = C:\software\apache-tomcat-7.0.40 (CATALINA_HOME不用添加到path中去)
+	3. 在bin下开启startup.bat,如果看到：server startup in xxx ms就代表启动成功了。
+	4. 在浏览器输入127.0.0.1:8080/ 或 http://localhost:8080/；如果在页面中看到有猫的标志就代表启动好了。
+  目录介绍:
+	* bin: tomcat运行的二进制文件
+	* conf : config配置文件夹,用来配置tomcat服务器的各种参数
+	* lib : Tomcat 服务器和所有 web 应用程序需要访问的 jar 文件
+	* logs: 日志文件夹,用来排错
+	* temp : 临时文件夹
+	* webapps : 网站,网络应用
+	* work : 编译的临时文件
+---------------------------------	
+host: c:\windows\system32\drivers\etc
+Servers视图打开方式：Window--Show View--other--Servers--双击Servers里面的服务器名(钩上Publish module contexts to separte XML files)
+	
+##常见端口:
+	* 端口号范围从0-65535,编写网络应用就需要绑定一个端口号，尽量使用1024以上的，1024以下的基本上都被系统程序占用了。
+	* 80,web服务器http协议的默认端口
+	* 443,web服务器https协议的默认端口
+	* ftp服务器的默认端口:21
+	* mysql: 3306
+	* oracle: 1521
+	* 5037为adb默认端口
+	* 25,发件服务器的默认端口 smtp
+	* 110,收件服务器的默认端口 pop
+	
+##Android6.0移除了HttpClient,建议用HttpURLConnection替代。
+	在build.gradle中加上
+	android {
+		useLibrary 'org.apache.http.legacy'
+	}
+* 像素密度: ldpi(120dpi),mdpi(160dpi,48*48px),hdpi(240dpi,72*72px),
+			xhdpi(320dpi,96*96px),xxhdpi(480dpi,144*144px),xxxhdpi(480dpi,192*192px)
+			对应的dp到px的系数分别为0.75、1、1.5和2...，这个系数乘以dp长度就是像素数.
+
+### 把.protoc编译成.java文件：							
+ 打开cmd，cd到protoc.exe所在的目录，输入编译命令编译文件：
+ protoc --proto_path=c:\pb  --java_out=c:\pb  c:\pb\RealTime.proto
+ 命令解释:1. protoc是命令，
+        2. --proto_path是输入路径(可以用 --I 代替)，
+		3. --java_out是输出路径，
+		4. 最后面跟着的是要编译文件的路径。
+	

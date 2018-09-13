@@ -1,0 +1,53 @@
+----------------------------------------------------	
+## ADB常用命令:
+	 * netstat -ano  //查找到占用5037端口的程序的PID
+	 * 终极解决adb被占用的问题:给adb server设置一个生僻的值;只要在系统环境变量中定义ANDROID_ADB_SERVER_PORT (= 如65535)即可。
+
+	 * adb kill-server 和 adb start-server (杀死开始adb服务
+	 * adb install -r apkPath    (覆盖安装.
+	 * adb uninstall packageName  ( 卸载程序
+	 * adb devices    (列出当前所有已连接的设备
+	 * adb push srcPath  desPath (推，上传到手机
+	 * adb pull srcPath  desPath (拉，从手机下载 
+
+# adb shell (进入手机内部,#符号表示超级用户了，$符号是普通用户	
+	* ls / ls -l / ls -al(a看隐藏文件,l看详情) (列出所有文件
+	* ping www.baidu.com    (查看网络情况
+	* ps  //查看所有进程
+	* kill //pid 杀死进程
+	* adb shell monkey -p com.hbxz.qkys 1000 (压力测试)
+	* chmod 777 WenJianMing (rwx 改文件权限 
+		 
+ adb shell cat /proc/cpuinfo (cpu型号)
+ adb shell cat /sys/class/net/wlan0/address (mac地址)
+ adb shell cat /system/build.prop (设备的更多硬件与系统属性)
+ adb shell screenrecord /sdcard/test.mp4 (录制命令)
+ 
+#
+ adb pull /data/data/com.hbxz.qkys/ehr.db  C:\Users\Xikang61\Desktop\pull.db(拉数据库出来)
+ adb -s emulator-5554 install ebook.apk (install时指定设备)
+ adb -s emulator-5556 shell {command} (发送指定命令)  	
+ 
+# 重挂载，在push文件 
+	1° adb remount
+	2° adb push  ***(文件)  system/framework/(把文件services.jar放进system/framework/)
+	3° adb reboot   			
+----------------------------------------------------								
+## 操作sqlite
+	adb shell /cd (数据库文件所在的位置)
+	# sqlite3 name.db (操作数据库)
+	> .table 
+	> .schema
+	> .exit 
+	> select * from info;	
+
+	//> chcp 65001 (change current age,可以改DOS下的编码为utf-8)
+	
+# 每个SQLite数据库中都还有一个隐藏的sqlite_master表，这里记载了当前数据库中所有表的建表语句，
+ 可以使用select * from sqlite_master命令进行查看,
+ 可以使用where进行过滤:select * from sqlite_master where name='EHR_Person';	
+ 
+# SQLite中可以使用pragma table_info(TABLE_NAME)这个命令来查看表的数据结构, 输入.mode line命令切换显示模式
+
+	
+	

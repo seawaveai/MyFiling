@@ -1,0 +1,260 @@
+root  root(设置的密码和账户)	
+								#### MySQL笔记 ####								
+##工具					
+     1.	Navicat Premium				
+	 2. SQLite Expert Professional
+	 3. SQLyog-8.32(sn)
+																			
+1. my.ini文件下的两个路径
+     #The TCP/IP Port the MySQL Server will listen on
+        port=3306
+     #Path to installation directory. All paths are usually resolved relative to this.
+        basedir="C:/Program Files (x86)/MySQL/MySQL Server 5.5/"
+     #Path to the database root
+       datadir="C:/ProgramData/MySQL/MySQL Server 5.5/Data/"
+							
+2. 测试是否成功：cmd命令：
+		mysql -u root -p
+		mysql -u root -proot db1 (同时输入密码和要使用的数据库db1)	
+		mysql -uroot -proot	
+													
+3. 语句	
+	 #操作数据库					
+	 	1. show databases;		//查看所有数据库					 
+		2. select database();	//当前正在使用的数据库						
+		3. use db1			   //使用db1这个数据库				
+		4. show create database db1;	//查看数据库db1的建库的信息							
+		5. create database 数据库名称 [character set 字符集 collate 校对规则];							
+		6. alter database 数据库名称 character set 字符集 collate 校对规则;								
+		7. drop database if exists数据库名;						
+							
+	 #数据库中的表操作 
+		 *  create database db1;     //建数据库
+		    use db1            		 //使用这个数据库	
+			create table employee(   //创建表
+				id int primary key auto_increment,
+				name varchar(20) unique,
+				salary double not null,
+				birthday date not null,
+				age int not null
+			);	
+						
+		 * desc employee;  //describe表的数据结构 sqlite用:pragma table_info(employee)
+		 * show tables;	   //查看所有表
+		 * drop employee;  //删除表
+		 * rename table employee to user; //修改表名
+		   alter table teacher rename to student;
+						
+		 * alter table employee add image varchar(50) null;		//增加字段
+		 * alter table employee drop salary;					//删除字段
+		 * alter table employee modify name varchar(10);		//改字段的类型
+		 * alter table employee change name UseName varchar(50);//修改字段名
+						
+		 * insert into user (id,birthday,age,salary) values (2,'2017-10-10',36,8888.99);
+		 * insert into user (id,birthday,age,salary) values (null,'2018-10-10',46,777.99);
+					
+		* 列约束：
+			* 主键：primary key
+			* 唯一：unique
+			* 非空：not null
+			 (多表的话还有外键约束)。
+							
+4.  4.1【MySQL插入一条中文记录的时候出现了错误的！！！
+		两种解决办法：
+		 * 修改cmd的字符集：但是这种不是永久的，新开一个窗口还需要再进行修改。
+		 * 修改mysql数据库与客户端相关的字符集部分：
+			 $ 打开mysql的安装路径查找一个my.ini的配置文件。
+					[client]
+					port=3306
+					[mysql]
+					default-character-set=gbk 
+						 &把client的编码改成gbk.
+			 $ 重启MySQL的服务，查看字符集相关的参数。
+					 show variables like '%character%';
+						 &就有编码是gbk了.
+			 $ 再次插入中文:
+	4.2【delete和truncate的比较
+	    delete from tableName(表名);和truncate table tableName(表名);都可以删除表中的所有记录。
+			* delete的删除是一条一条进行删除。而truncate table将整个表删除了，重新创建一个一样的表。
+			* 事务的管理可以作用于DML（insert,update,delete）语句上。事务可以回滚。（了解）
+			* sqlite没有truncate.
+	4.3【as可以省略
+		select name,english from exam;//查询了name和english两列。
+		select name englise from exam; == select name as english from exam;//查询了name这一列,这个语法没有错误。
+	4.4【条件查询
+			$ where子句后的条件的写法：
+				* 判断:> , < ,>= , <= ,= , <> (不等于)。
+				* in(值1,值2,值3)
+				* like 模糊查询。需要使用占位符。占位符有两种一种是_ 另一种是 % 。
+					_代表一个字符 (张_;	_白;)		
+					%代表任意个字符 (张%;%白;)		
+			$ 条件的并列:
+				* and , or ,not
+	4.5【MySQL中的类型
+		Java中的类型			MySQL中的类型
+		byte,short,int,long		tinyint,smallint,int,bigint      	(4)(6)(11)(20)
+		float,double			float,double
+		boolean					bit 								tinyint(1)
+		char,String				char,varchar(字符串)					
+		Date					date,time,datetime,timestamp。
+					
+	4.6【查询语句的总结
+		查询的语句是变化最多的语句。结构如下：
+			Select … From … where … group by … having … order by …;
+			SFWGHO…
+5. 成绩表
+		create table exam (id int primary key auto_increment,name varchar(20),chinese int,math int,english int);
+			insert into exam values (null,'梁宝强',90,78,82);
+			insert into exam values (null,'梁蓉',85,91,76);
+			insert into exam values (null,'梁喆',75,62,58);
+			insert into exam values (null,'张凤',95,69,87);
+			insert into exam values (null,'李如花',90,82,95);
+		select * from exam;	
+		select distinct chinese from exam;
+		select chinese+english from exam;
+		select name,chinese+english+math as sum from exam;
+		[排序]
+		select * from exam order by english desc,math desc;//默认情况下是升序的排序(从小到大的排序顺序关键字asc).
+6. 聚合函数
+		sum();		---求和。
+		avg();		---求平均值。
+		count();	---统计个数。
+		max();		---求最大值。
+		min();		---求最小值
+						
+		$ 插入空值后，横向和竖向统计是不一样的结果。
+		1.横着统计，NULL+78+92最终结果是NULL.
+		2.竖着方向sum(english)+sum(math)+sum(chinese)将78和92的值也都统计进来了。也可以使用ifnull函数。
+			select sum(chinese)+sum(math)+sum(english) from exam;
+			select sum(chinese+math+english) from exam;
+			select sum(ifnull(chinese,0)+math+english) from exam;//ifnull的使用
+		$ 使用
+			select avg(math) from exam;	
+			select max(math) from exam;
+			select min(math) from exam;
+			select count(0) from exam;比select count(*) from exam;效率高。
+7. 查询的分组
+	* 创建表
+		create table product(
+			id int primary key auto_increment,
+			name varchar(20),
+			price double,
+			cname varchar(20)
+		);
+		insert into product values (null,'洗衣机',1000,'家用电器');
+		insert into product values (null,'冰箱',3000,'家用电器');
+		insert into product values (null,'洗衣机',1000,'家用电器');
+		insert into product values (null,'空调',2000,'家用电器');
+		insert into product values (null,'电脑',4000,'电脑办公');
+		insert into product values (null,'机械键盘',300,'电脑办公');
+		insert into product values (null,'机械键盘',300,'电脑办公');
+	*select name,sum(price) from product group by name;
+	 select cname,sum(price) from product where cname='家用电器' group by cname;//获得家用电器类的商品所花的总金额
+	 
+	* 按照分类的名称统计每个分类商品所花的总钱数。查询出总钱数大于5000的有哪些。			
+		select cname,sum(price) from product where sum(price)>5000 group by cname;
+	   //以上的写法是错误的！！因为where条件后不能加聚合函数。带分组统计的条件，需要加在having后面。
+		select cname,sum(price) from product group by cname having sum(price)>5000;
+					
+8. 关系型数据库设计	
+	8.1【实体与实体之间就有三种关系：
+			一对多的关系：
+				一个部门下有多个员工，一个员工只能属于某一个部门。
+				一个客户产生多个订单，一个订单只能属于某一个客户。
+			多对多的关系：
+				一个学生可以选择多门课程，一门课程可以被多个学生选择。
+				一个订单中包含多个商品，一个商品可以被包含在多个订单中。
+			一对一的关系：(少见，可以合成一个表)
+				一个公司只能有一个注册的地址，一个地址只能被一个公司注册。
+	8.2【表关系的创建
+		&一对多的建表原则：
+			在多的一方的创建一个字段作为外键指向另一方的主键。
+			create table dept(
+				did int primary key auto_increment,
+				dname varchar(20)
+			);
+			insert into dept values (null,'教研部');
+			insert into dept values (null,'人事部');
+			insert into dept values (null,'产品部');
+						
+			create table employee(
+				eid int primary key auto_increment,
+				ename varchar(20),
+				age int,
+				dno int
+			);	
+			insert into employee values (null,'梁宝强',36,1);
+			insert into employee values (null,'梁喆',36,1);
+			insert into employee values (null,'梁凤儿',36,2);
+			insert into employee values (null,'梁如花',18,2);
+			insert into employee values (null,'梁芙蓉',20,3);
+						
+			需要将dno这个字段改为外键，外键是多表的约束（保证数据的完整性）。
+			alter table employee add foreign key(dno) references dept(did);
+				
+		&多对多的建表原则：
+			需要创建第三张表（中间表），中间表中通常有两个字段作为外键，分别指向多对多双方的主键。
+						
+		&一对一的建表原则:
+			1.【唯一外键对应的方式
+				假设成一对多，然后在多哪个表里面把外键设置成unique.
+			2,【主键对应的方式
+				两个表的主键相同.
+							
+9. 多表的查询/连接查询	
+	A.【交叉连接】---基本不使用
+		语法：select * from 表1,表2; ---查询到结果是两个表的笛卡尔积。
+			 select * from dept,employee;
+	B.【内连接】内连接的关键字inner join
+		1.显示内连接：语句中有inner join关键字.(inner可以省略)
+			 select * from dept inner join employee on dept.did=employee.dno;			
+		2.隐式内连接：语句中没有inner join关键字。
+			 select * from dept,employee where dept.did = employee.dno;
+	C.【外连接】关键字outer join.(outer可以省略)
+		1.左外连接：使用的关键字 left outer join
+			 select * from dept d left outer join employee e on d.did = e.dno;
+		2.右外连接：使用的关键字right outer join
+			 select * from dept d right outer join employee e on d.did=e.dno;
+	X. 连接的练习		 
+		根据部门名称统计每个部门下的员工的个数。
+		select d.dname , count(*) from dept d,employee e where d.did=e.dno group by d.dname;
+					
+		根据部门名称统计每个部门的员工年龄的平均值，并且将平均值大于等于20的部门显示出来：
+		select d.dname,avg(age) from dept d,employee e where d.did=e.dno group by d.dname having avg(age) >= 20;
+					
+		统计每个学生都选了几门课程。(多对多)
+		select s.sname,count(*) from student s,course c,stu_cour sc where s.sid=sc.sno and c.cid=sc.cno group by s.sname;
+	y. 子查询：
+		指的是一个sql语句的查询结果需要依赖另一个sql语句结果来实现。
+		select * from exam where math > (select avg(math) from exam);
+					
+10.注入的问题					
+		1.原因：
+			因为SQL语句拼接，传入了SQL的关键字。
+					
+		2.预编译SQL：
+			.createStatement();
+			.prepareStatement(sql);
+			
+11.语句
+			
+	 select version(),current_date,now(),user();
+	 \c ； mysql>变为-> ；QUIT(或\q)随时退出；
+	 alter table yourtablename drop foreign key fk_symbol;(InnoDB也支持使用ALTER TABLE来移除外键)
+
+	 
+* @desc 建议这样写:
+  select ehr_person.IDNumber,his_heightweight.* from his_heightweight
+  INNER JOIN ehr_person on ehr_person.PersonId=his_heightweight.PersonId
+  where his_heightweight.SyncStatus=0
+  limit 0,20	
+  
+* 连表查询
+ select a.[PersonId],a.[IDNumber],a.[MachineNo],b.[ID],c.*
+ from EHR_Person a  
+ INNER JOIN EHR_Chronic b ON a.[PersonId]=b.[PersonId]
+ INNER JOIN PHS_ChronicVisit c ON b.[ID]=c.[RegisterId]
+ WHERE a.PersonId='769cdd52-eabe-4e46-87c9-622dcd2bdbbd'
+ ORDER BY b.[CreateTime] DESC
+ limit 0, 20 
+  

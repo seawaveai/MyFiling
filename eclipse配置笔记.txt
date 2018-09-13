@@ -1,0 +1,73 @@
+	      eclipse配置笔记:
+			
+1.配置
+window--Preferences--Java
+ 1.Compiler(编译环境) | Installed JREs(运行环境).(建议编译和运行的版本一致)
+ 2.Code Style--Code Templates--code里面带//都可以删掉.(删掉默认注释)
+ 3.code style--Code Templates--comments--XXX. (创建注释) {Types节点(类注释),Delegate Methods节点(代理方法注释)}
+ 4.code Style--fields Prefixlist.(在变量前加m)
+ 5.Code Style->Formatter->Edit/Show==Line Wrapping->Maximum line width{由80改成你要设置的宽度(格式化换行问题)}
+			
+ 6.Editor--Hovers--Combined Hover(勾去掉,代码注释悬浮框不会自动出现了;想看提示,将光标悬浮在代码上按F2即可)
+ 7.Editor--Content Assistant--Auto activation triggers for Java(abcde...代码自动提示)	
+ 8.Editor--Templates (方法快捷键)
+			
+window--Preferences--General 
+ 1.Appearance--Colors And Fonts--Java --Java Edit Text Font(Java代码区域的字体大小和颜色)
+ 2.Appearance--Colors And Fonts--Debug--Console font(控制台)
+ 3.Appearance--Colors And Fonts--Basic--Text Font(其他文件内容里文字)
+ 4.Appearance--Colors and Fonts--Basic--双击Text Font,(设置android里的eclipse布局)	
+			
+ 5.WorkSpace --修改编码为utf-8,修改编码为utf-8.
+			
+ 6.Editors--Appearance color options里面的Background color.(只改了代码的区域)
+		[色调调成:85,饱和度调成:123,亮度调成:205;即可调成豆沙绿色了.改背景颜色.]
+		
+ 7.XML-xmlfiles-Editor-content-Assistant.(xml编辑代码提示)
+					   -Templates
+						
+window--Reset Perspective (窗体给弄乱了)
+Window--Show View—Consol  (控制台找不到了)
+Show Line Numbers (行号的显示和隐藏,代码区域的最左边的空白区域)	
+General--Startup and Shutdown(加速Eclipse的启动)	
+			
+			
+添加SDK and AVD Manager快捷方式到菜单栏
+	 * Window --> Perspective --> Custome Perspective --> Action Set Available --> Android SDK and AVD Manager
+	 * Window --> Perspective --> Custome Perspective --> Toolbar Visibility --> Android SDK and AVD Manager  
+			
+2.快捷键
+    * A:新建 ctrl + n   new 
+	* B:格式化  ctrl+shift+f
+	* C:导入包  ctrl+shift+o  
+	* D:注释  ctrl+/,  ctrl+shift+/, ctrl+shift+\
+	* E:代码上下移动  选中代码alt+上/下箭头
+	* F:查看源码  选中类名(F3或者Ctrl+鼠标点击)
+	* G:查找具体的类 ctrl + shift + t
+	* H:查找具体类的具体方法 ctrl + o
+	* I:给建议 ctrl+1,根据右边生成左边的数据类型,生成方法
+	* J:删除代码 ctrl + d
+	* K:抽取方法alt + shift + m 
+	* L:改名alt + shift + r 
+			
+ 定义自己的alt + / (起提示作用)
+	windows--perference-Java-Editor-Templates--New
+ alt + shift + s
+	A:自动生成构造方法    +c空  +o有
+	B:自动生成get/set方法  +r 	
+	
+3.将workspace/.metadata/.plugins/org.eclipse.core.runtime中的.settings文件夹拷贝出来，里面就是所有的配置文件，
+新建工作空间的时候将该.settings文件夹替换掉新工作空间中的.settings文件夹即可。
+
+##小技巧，大智慧：
+	ctrl+shift + y 字母全变小写；+x 字母变大写。
+	ctrl+shift + o 整理包。
+	ctrl+ T 看继承简图
+	ctrl+ shift + T (open type查找)
+	ctrl+ O 查看当前类的方法或某个字段
+	ctrl+ shift + G
+	查看源代码 * Ctrl+H 全局搜索  * Ctrl+K 搜索下一个出现的地方
+	F3 : 打开类的源码
+	ctrl+ m 全屏的切换
+
+
