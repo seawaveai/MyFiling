@@ -39,7 +39,7 @@ root  root(设置的密码和账户)
 				age int not null
 			);	
 						
-		 * desc employee;  //describe表的数据结构 sqlite用:pragma table_info(employee)
+		 * desc employee; //describe表的数据结构 sqlite用:pragma table_info(employee)
 		 * show tables;	   //查看所有表
 		 * drop employee;  //删除表
 		 * rename table employee to user; //修改表名
@@ -87,7 +87,8 @@ root  root(设置的密码和账户)
 				* in(值1,值2,值3)
 				* like 模糊查询。需要使用占位符。占位符有两种一种是_ 另一种是 % 。
 					_代表一个字符 (张_;	_白;)		
-					%代表任意个字符 (张%;%白;)		
+					%代表任意个字符 (张%;%白;)	
+				SELECT * FROM DictionaryItem WHERE Text like '发_'		
 			$ 条件的并列:
 				* and , or ,not
 	4.5【MySQL中的类型
@@ -113,8 +114,9 @@ root  root(设置的密码和账户)
 		select distinct chinese from exam;
 		select chinese+english from exam;
 		select name,chinese+english+math as sum from exam;
-		[排序]
-		select * from exam order by english desc,math desc;//默认情况下是升序的排序(从小到大的排序顺序关键字asc).
+	[排序]
+	 select * from exam order by english desc,math desc;
+	  //默认是升序(从小到大的排序asc).descend/ascend
 6. 聚合函数
 		sum();		---求和。
 		avg();		---求平均值。
@@ -258,3 +260,7 @@ root  root(设置的密码和账户)
  ORDER BY b.[CreateTime] DESC
  limit 0, 20 
   
+  
+   update Ehr_person set SyncStatus='0' where IDNumber='110101192203070831'
+   select SyncStatus from ehr_person;
+   
