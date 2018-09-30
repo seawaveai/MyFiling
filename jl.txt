@@ -1,0 +1,77 @@
+mkdir
+pwd
+touch config.txt
+echo "xxx" >  config.txt
+echo "yyyy" >> config.txt
+cat config.txt
+sed -i "na 内容" 文件 (在某行查入东西)
+
+ git log --pretty=oneline 日志好看
+ git reset --hard HEAD^  回退到
+ git reflog  记录你的每一次命令
+ 
+ git checkout -- file     命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
+ 
+ git reset HEAD readme.txt
+ 当我们用HEAD时，表示最新的版本
+ 
+ git rm test.txt  删除文件
+ git commit -m "remove test.txt"  提交
+ git checkout -- test.txt  或者复原
+ 
+ git remote add origin git@github.com:seawaveai/Remote.git
+ git push -u origin master
+ git remote rm origin (删除已有的远程库)
+ 
+ 同时与多个远程库互相同步
+ git remote add github git@github.com:michaelliao/learngit.git
+ git remote add gitee git@gitee.com:liaoxuefeng/learngit.git
+ git push github master
+ git push gitee master
+ 
+使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+
+git merge 命令用于合并指定分支到当前分支
+注意到上面的Fast-forward信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快。
+
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+
+ git merge --no-ff -m "merge with no-ff" dev
+ 
+ git stash
+首先确定要在哪个分支上修复bug，假定需要在master分支上修复，就从master创建临时分支
+git stash list
+git stash apply stash@{0}  git stash drop
+git stash pop
+
+每添加一个新功能，最好新建一个feature分支
+
+$ git remote -v
+上面显示了可以抓取和推送的origin的地址。如果没有推送权限，就看不到push的地址
+git push origin dev 推送其他分支，比如dev
+
+因此，多人协作的工作模式通常是这样：
+首先，可以试图用git push origin <branch-name>推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+ git branch --set-upstream-to=origin/dev dev
+ 
+ git add App.class
+ git add -f App.class 用-f强制添加到Git
+ git check-ignore -v App.class 检查到底哪个规则写错了
+ 
+ git config --global alias.last 'log -1'  git last就能显示最近一次的提交
+ 
+ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+ 
+ --global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用
+ 
+ 
