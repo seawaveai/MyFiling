@@ -1,0 +1,221 @@
+       git笔记整理
+git config --global user.name "you_name" (配置名字和邮箱 不输入名字、邮箱就可以查看是否配置成功)
+git config --global user.email "xxx@163.com"
+git config –list  (git的当前配置信息)
+git config --list --global  (git项目的通用配置信息)
+git version  (查看版本)
+
+git init XXX  (初始化本地仓库)
+git clone url  (克隆远程仓库)
+git clone git@github.com:seawaveai/MyFiling.git XXX  (克隆远程仓库时自定义本地仓库的名字)
+git add xxx  (添加单个文件或文件夹)
+git add .   (添加全部文件)
+git commit -m "first commit"  (一定要跟-m添加描述信息，否则非法)
+git pull origin master  (origin部分指定的是远程仓库的git地址，master部分指定的是同步到哪个分支上)
+git push origin master 
+
+xxx.gitignore  (忽略文件)
+git status   (查看自上次提交后文件的修改情况)
+git diff xxx   (查看具体文件前后的不同)
+git diff HEAD (比较与上一个commit的差异, HEAD^ HEAD^^ HEAD~100 ) 
+git diff branch1 branch2 --stat  (加上--stat显示文件列表)
+
+git checkout <file>  (撤销修改—没执行add命令的情况)
+git reset HEAD <file>  (撤销修改—执行了add命令的情况)
+git reset <last commit SHA> <file>
+git reset --hard HEAD^^  (回退到指定版本)
+
+git log   (查看日志---日志包括：id，提交人，提交日期，提交描述)
+git log -1   (看一条)   git log -2看两条
+git log id -1  (也可以加id)
+git log -1 -p  (加-p查看这条记录具体修改了什么内容)
+git shortlog  (显示效果简洁)
+
+git branch -a   (查看有那些分支, 前面有*标识的代表当前分支)
+git branch version1.0  (创建分支version1.0)
+git checkout version1.0  (切换当前分支到version1.0)
+git checkout master  
+git merge version1.0   (此两条指令,实现version1.0分支合并到master分支) 
+git branch -d version1.0  (删除version1.0分支,-d/-D的区别,-D是强制)
+git checkout –b dev    新建dev并切换到dev
+git push origin dev    推送dev到远程库
+ 
+git fetch origin master  (执行后,代码会存在origin/master分子上)
+git diff origin/master   (查看远程版本到底修改了哪些东西)     
+git merge origin/master  (将origin/master上的修改合并到主分支上)
+====git pull origin master  (fetch与pull之间的区别)
+
+--------------------------- 
+       参考廖雪峰博客做的笔记整理: 
+# 初始化仓库 
+ mkdir	创建一个文件夹
+ pwd	命令用于显示当前目录的路径
+ touch config.txt	创建一个文件
+ echo "xxx" >  config.txt	写东西到文件中
+ echo "yyyy" >> config.txt
+ cat config.txt		查看文件内容	
+ sed -i "na 内容" 文件 (在某行查入东西)
+
+# 版本回退
+ git log --pretty=oneline 日志简洁
+ git reset --hard HEAD^   回退到 (在Git中,用HEAD表示当前版本,上一个版本就是HEAD^,HEAD~100) 
+ git reflog   记录你的每一次命令,即使回退后也能看到
+ 
+# 管理修改 
+ change readme.txt
+ git add readme.txt
+ change readme.txt
+ git commit -m "提交" (第二次的修改没有被提交)
+ git diff HEAD -- readme.txt  命令可以查看工作区和版本库里面最新版本的区别
+ (每次修改,如果不用git add到暂存区,那就不会加入到commit中) 
+ git diff HEAD^ origin/dev  比对分支
+ 
+# 撤销修改 
+ git checkout -- file  修改了文件内容 (没有--,就变成了“切换到另一个分支”的命令)
+ git reset HEAD readme.txt  修改并添加到暂存区时
+ 
+ 场景1:想丢弃工作区的某个文件的修改时,用命令git checkout -- file.
+ 场景2:修改且添加到了暂存区时,弃修改分两步:第一步用命令git reset HEAD <file>,就回到了场景1; 第二步按场景1操作.
+ 场景3:提交了不合适的修改到版本库时,撤销本次提交参考版本回退,不过前提是没有推送到远程库.
+ 
+# 删除文件
+ git rm test.txt  删除文件
+ git commit -m "remove test.txt"  提交
+ 
+ git checkout -- test.txt  把误删的文件恢复到最新版本
+ 
+# 添加删除远程库关联 
+ git remote add origin git@github.com:seawaveai/Remote.git(远程库的名字就是origin,这是Git默认的叫法,可以取名其他)
+ git push -u origin master (第一次推送master分支时,加上了-u参数)
+ 
+ git remote rm origin (删除已有的远程库关联)
+ 
+ 同时与多个远程库互相同步
+ git remote add github git@github.com:michaelliao/learngit.git
+ git remote add gitee git@gitee.com:liaoxuefeng/learngit.git
+ git push github master
+ git push gitee master
+ 
+[使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，
+但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。]
+
+# 创建和合并分支 
+ git branch 查看分支(当前分支前面会标一个*号)
+ git branch <name> 创建分支
+ git checkout <name> 切换分支
+ ==git checkout -b <name>  创建+切换分支
+ git merge <name> 合并某分支到当前分支
+  (注意到上面的Fast-forward信息,Git告诉我们,这次合并是“快进模式”,也就是直接把master指向dev的当前提交,所以合并速度非常快)
+ git branch -d <name> 删除分支
+ git branch -a   查看所有的分支,包括远程的
+
+# 分支管理策略 
+ git checkout -b dev 创建分支并修改文件,然后再切换到主分支
+ git merge --no-ff -m "merge with no-ff" dev 
+ 说明:1.准备合并dev分支,请注意--no-ff参数,表示禁用Fast forward.
+	  2.因为本次合并要创建一个新的commit,所以加上-m参数,把commit描述写进去.
+ git log --graph
+ git log --graph --pretty=oneline --abbrev-commit(看看分支历史)
+ 注意:合并分支时,加上--no-ff参数就可以用普通模式合并,合并后的历史有分支,能看出来曾经做过合并,而fast forward合并就看不出来曾经做过合并.
+
+# bug分支
+ ?当正在dev分支开发情况下,突然要去处理bug,当前代码还不能提交,就要把当前工作现场“储藏”起来.
+ git stash 把当前工作现场“储藏”起来.
+ git先确定要在哪个分支上修复bug,假定需要在master分支上修复,就从master创建临时分支.
+ git处理bug,合并,删除.
+ git stash list 查看工作现场存到哪去了.
+ 恢复的方式:
+   1.git stash apply stash@{0}  恢复后，stash内容并不删除
+	 git stash drop             用git stash drop来删除
+   2.git stash pop   恢复的同时把stash内容也删了
+
+  多次stash后,如何区分是哪次呢? 
+   
+# Feature分支   
+   每添加一个新功能,最好新建一个feature分支.
+   如果要丢弃一个没有被合并过的分支,可以通过git branch -D <name>强行删除.
+   
+# 多人协作/抓取分支   
+ git remote -v    上面显示可以抓取和推送的origin的地址,如果没有推送权限就看不到push的地址.
+ git push origin dev   推送其他分支,比如dev
+ git clone git@github.com:michaelliao/learngit.git   默认情况下,只能看到本地的master分支
+ git checkout -b dev origin/dev   若要在dev分支上开发,就必须创建远程origin的dev分支到本地
+ git push origin dev	         把dev分支push到远程
+ git branch --set-upstream-to=origin/dev dev   pull失败原因是没有指定本地dev分支与远程origin/dev分支的链接
+	
+ git push origin --delete branch_name   删除远程分支
+ git push origin master -f   当有冲突时,强行推送
+ 
+# Rebase
+ git log --graph --pretty=oneline --abbrev-commit
+ (HEAD -> master)和(origin/master)标识出当前分支的HEAD和远程origin的位置
+ 
+rebase操作可以把本地未push的分叉提交历史整理成直线;
+rebase的目的是使得我们在查看历史提交的变化时更容易,因为分叉的提交需要三方对比;
+
+# Tag
+ git tag v1.0  打一个标签(默认为HEAD,可以指定id)
+ git tag 	 查看所有标签
+ git log --pretty=oneline --abbrev-commit
+ git tag v0.9 f52c633  (先查询到id,然后打tag到指定id上)
+ git tag -a v0.1 -m "version 0.1 released" f52c633 (也可创建带有说明的标签,用-a指定标签名,-m指定说明文字)
+ git show v0.9  查看标签信息
+ 
+ git tag -d v1.0.4    删除本地tag
+ git push origin v1.0.4   把本地标签推送到远程服务器
+ git push --delete origin v1.0.4   删除一个远程标签
+ git checkout -b release_V2.8.2 v2.8.2   新建分支对应某个标签
+ git fetch origin tag <tagname>  获取远程tag
+ 
+# 忽略
+ git add App.class
+ git add -f App.class 用-f强制添加到Git
+ git check-ignore -v App.class 检查到底哪个规则写错了
+ 
+# 别名
+	--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用
+ git config --global alias.st status 
+ git config --global alias.last 'log -1'  git last 就能显示最近一次的提交
+ git config --global alias.lg "log --color --graph --pretty=format:
+ '%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+ 
+ git config --global alias.co checkout
+ git config --global alias.ci commit
+ git config --global alias.br branch
+ git config --global alias.unstage 'reset HEAD'
+ 
+# 设置Meld为比较/合并工具 
+ (前提是先要安装Meld,并且在环境变量PATH中加入执行文件的路径)
+ git difftool --tool=meld
+ git mergetool --tool=meld 
+------------------ ---------  
+   
+* git clone默认会下载项目的完整历史版本    
+  git clone --depth=1 https://github.com/abc/def.git  --depth=1 表示只下载最近一次的版本,减少数据量的下载
+
+正确使用rebase
+# 不喜欢用pull的同学用这个
+  git fetch origin
+  git rebase origin/dev
+# 使用pull的潜在缺点在于，有时候你只想fetch不想merge/rebase
+ git pull --rebase
+# 如果有冲突，修改完相关文件后，再rebase
+ git add <filename>
+ git rebase --continue
+# rebase时忽略当前冲突，不做merge
+ git rebase --skip
+# rebase完了，最后push
+ git push origin dev
+# 放弃本次rebase
+ git rebase --abort
+
+
+
+
+
+
+
+
+
+
+
