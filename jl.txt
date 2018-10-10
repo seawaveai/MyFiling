@@ -34,11 +34,11 @@
  
  git checkout -- test.txt  把误删的文件恢复到最新版本
  
-# 添加删除远程库 
+# 添加删除远程库关联 
  git remote add origin git@github.com:seawaveai/Remote.git(远程库的名字就是origin,这是Git默认的叫法,可以取名其他)
  git push -u origin master (第一次推送master分支时,加上了-u参数)
  
- git remote rm origin (删除已有的远程库)
+ git remote rm origin (删除已有的远程库关联)
  
  同时与多个远程库互相同步
  git remote add github git@github.com:michaelliao/learngit.git
@@ -57,6 +57,8 @@
  git merge <name> 合并某分支到当前分支
   (注意到上面的Fast-forward信息,Git告诉我们,这次合并是“快进模式”,也就是直接把master指向dev的当前提交,所以合并速度非常快)
  git branch -d <name> 删除分支
+ git branch -a  查看所有的分支,包括远程的
+
 
 # 分支管理策略 
  git checkout -b dev 创建分支并修改文件,然后在切换到主分支
