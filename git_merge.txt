@@ -30,6 +30,7 @@ git log -1   (看一条)   git log -2看两条
 git log id -1  (也可以加id)
 git log -1 -p  (加-p查看这条记录具体修改了什么内容)
 git shortlog  (显示效果简洁)
+git blame app/build.gradle 追溯指定文件的历史修改记录(as里的Annotate也有此功能)
 
 git branch -a   (查看有那些分支, 前面有*标识的代表当前分支)
 git branch version1.0  (创建分支version1.0)
@@ -163,10 +164,15 @@ rebase的目的是使得我们在查看历史提交的变化时更容易,因为�
  
  git tag -d v1.0.4    删除本地tag
  git push origin v1.0.4   把本地标签推送到远程服务器
+ git push origin --tags   推送所有的本地Tag
  git push --delete origin v1.0.4   删除一个远程标签
  git checkout -b release_V2.8.2 v2.8.2   新建分支对应某个标签
  git fetch origin tag <tagname>  获取远程tag
  
+ * 删除远程tag
+  git tag -d v1.0  先删本地tag
+  git push origin :refs/tags/v1.0  再重新push到远程
+  
 # 忽略
  git add App.class
  git add -f App.class 用-f强制添加到Git
@@ -210,6 +216,10 @@ rebase的目的是使得我们在查看历史提交的变化时更容易,因为�
  git rebase --abort
 
 
+* git branch -a
+  remotes/origin/HEAD -> origin/master 是干嘛的?
+origin/HEAD就像一个指针,表示默认分支,你的例子中它指向origin/master,即origin/master是默认分支.
+删掉也是可以的:git remote set-head origin -d 
 
 
 
