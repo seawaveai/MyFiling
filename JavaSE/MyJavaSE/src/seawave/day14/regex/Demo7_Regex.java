@@ -20,8 +20,8 @@ public class Demo7_Regex {
 				将字符串还原成:“我要学编程”。
 	 */
 	public static void main(String[] args) {
-		//demo1();
-		//demo2();
+		demo1();
+		demo2();
 		demo3();
 	}
 
@@ -32,8 +32,10 @@ public class Demo7_Regex {
 		 */
 		String s = "我我....我...我.要...要要...要学....学学..学.编..编编.编.程.程.程..程";
 		String s2 = s.replaceAll("\\.+", "");
+	
 		String s3 = s2.replaceAll("(.)\\1+", "$1");	//$1代表第一组中的内容
 		System.out.println(s3);
+		System.out.println("----------------");
 	}
 
 	public static void demo2() {
@@ -43,8 +45,10 @@ public class Demo7_Regex {
 		String[] arr = s.split(regex);
 		
 		for (int i = 0; i < arr.length; i++) {
-			System.out.println(arr[i]);
+			System.out.print(arr[i]+"  ");
 		}
+		System.out.println();
+		System.out.println("----------------");
 	}
 
 	public static void demo1() {
@@ -56,10 +60,11 @@ public class Demo7_Regex {
 		System.out.println("死啦死啦".matches(regex));*/
 		
 		//叠词 死啦死啦,高兴高兴
-		String regex2 = "(..)\\1";
+		String regex2 = "(..)\\1";  // "(..)\\1{2,3}";
 		System.out.println("死啦死啦".matches(regex2));
 		System.out.println("高兴高兴".matches(regex2));
 		System.out.println("快快乐乐".matches(regex2));
+		System.out.println("----------------");
 	}
 
 }

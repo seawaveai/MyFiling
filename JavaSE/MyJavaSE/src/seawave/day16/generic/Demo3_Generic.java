@@ -13,8 +13,9 @@ public class Demo3_Generic {
 	 */
 	public static void main(String[] args) {
 		//demo1();
+		
 		Tool<String> t = new Tool<>();
-		//t.show("abc");
+		t.show("abc");
 		t.show(true);
 	}
 

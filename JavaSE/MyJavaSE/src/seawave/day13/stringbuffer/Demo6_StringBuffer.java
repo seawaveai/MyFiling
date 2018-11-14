@@ -14,6 +14,10 @@ public class Demo6_StringBuffer {
 	 */
 	public static void main(String[] args) {
 		//demo1();
+		demo2();
+	}
+
+	private static void demo2() {
 		StringBuffer sb = new StringBuffer("heima");
 		
 		String s1 = new String(sb);						//通过构造将StringBuffer转换为String

@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 import seawave.day17.bean.Student;
 public class Test7 {
-
 	/**
 	 * * A:案例演示
 	 * 需求：键盘录入5个学生信息(姓名,语文成绩,数学成绩,英语成绩),按照总分从高到低输出到控制台。

@@ -1,36 +1,46 @@
 package seawave.day12.string;
 
+import seawave.day12.bean.Person;
+
 public class Demo7_StringMethod {
 
 	/**
-	 * * A:String鐨勬浛鎹㈠姛鑳藉強妗堜緥婕旂ず
+	 * * A:String的替换功能及案例演示
+	 * 
 			* String replace(char old,char new)
+			* 
 			* String replace(String old,String new)
-			
-		* B:String鐨勫幓闄ゅ瓧绗︿覆涓ょ绌烘牸鍙婃渚嬫紨绀�
+			* 
+		* B:String的去除字符串两空格及案例演示
 			* String trim()
-			
-		* C:String鐨勬寜瀛楀吀椤哄簭姣旇緝涓や釜瀛楃涓插強妗堜緥婕旂ず
-			* int compareTo(String str)(鏆傛椂涓嶇敤鎺屾彙)
-			* int compareToIgnoreCase(String str)(浜嗚В)
-			 
+			* 
+		* C:String的按字典顺序比较两个字符串及案例演示
+		* 
+			* int compareTo(String str)(暂时不用掌握)
+			* 
+			* int compareToIgnoreCase(String str)(了解)
 			* 
 	 */
 	public static void main(String[] args) {
 		//demo1();
-		demo2();
 		
+		//demo2();
+
+		demo3();
+	}
+
+	private static void demo3() {
 		String s1 = "a";
 		String s2 = "aaaa";
 		
-		int num = s1.compareTo(s2);				//鎸夌収鐮佽〃鍊兼瘮杈�
+		int num = s1.compareTo(s2);				//按照码表值比较
 		System.out.println(num);
 		
-		String s3 = "榛�";
-		String s4 = "椹�";
+		String s3 = "黑";
+		String s4 = "马";
 		int num2 = s3.compareTo(s4);
-		//System.out.println('榛�' + 0);			//鏌ユ壘鐨勬槸unicode鐮佽〃鍊�
-		//System.out.println('椹�' + 0);
+		System.out.println('黑' + 0); // 查找的是unicode码表值
+		System.out.println('马' + 0);
 		System.out.println(num2);
 		
 		String s5 = "heima";
@@ -50,11 +60,11 @@ public class Demo7_StringMethod {
                 char c1 = s1.charAt(i);
                 char c2 = s2.charAt(i);
                 if (c1 != c2) {
-                    c1 = Character.toUpperCase(c1);						//灏哻1瀛楃杞崲鎴愬ぇ鍐�
-                    c2 = Character.toUpperCase(c2);						//灏哻2瀛楃杞崲鎴愬ぇ鍐�
+                    c1 = Character.toUpperCase(c1);						//将c1字符转换成大写
+                    c2 = Character.toUpperCase(c2);						//将c2字符转换成大写
                     if (c1 != c2) {
-                        c1 = Character.toLowerCase(c1);					//灏哻1瀛楃杞崲鎴愬皬鍐�
-                        c2 = Character.toLowerCase(c2);					//灏哻2瀛楃杞崲鎴愬皬鍐�
+                        c1 = Character.toLowerCase(c1);					//将c1字符转换成小写
+                        c2 = Character.toLowerCase(c2);					//将c2字符转换成小写
                         if (c1 != c2) {
                             // No overflow because of numeric promotion
                             return c1 - c2;
@@ -74,15 +84,14 @@ public class Demo7_StringMethod {
 
 	private static void demo1() {
 		String s = "heima";
-		String s2 = s.replace('i', 'o');			//鐢╫鏇挎崲i
+		String s2 = s.replace('i', 'o');			//用o替换i
 		System.out.println(s2);
 		
-		String s3 = s.replace('z', 'o');			//z涓嶅瓨鍦�,淇濈暀鍘熷瓧绗︿笉鏀瑰彉
+		String s3 = s.replace('z', 'o');			//z不存在,保留原字符不改变
 		System.out.println(s3);
 		
 		String s4 = s.replace("ei", "ao");
 		System.out.println(s4);
 	}
-
 
 }

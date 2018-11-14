@@ -1,27 +1,34 @@
 package seawave.day12.string;
 
-import org.junit.Test;
-
 import seawave.day12.bean.Person;
 
 public class Demo6_StringMethod {
 	/**
-	 * * byte[] getBytes():把字符串转换为字节数组。
-		* char[] toCharArray():把字符串转换为字符数组。
-		* static String valueOf(char[] chs):把字符数组转成字符串。
-		* static String valueOf(int i):把int类型的数据转成字符串。
-		* 注意：String类的valueOf方法可以把任意类型的数据转成字符串。
-	
-	
-		* String toLowerCase():把字符串转成小写。(了解)
-		* String toUpperCase():把字符串转成大写。
-		* String concat(String str):把字符串拼接。
+	 * byte[] getBytes():把字符串转换为字节数组。
+	 * 
+	 * char[] toCharArray():把字符串转换为字符数组。
+	 * 
+	 * static String valueOf(char[] chs):把字符数组转成字符串。
+	 * 
+	 * static String valueOf(int i):把int类型的数据转成字符串。
+	 * 
+	 * 注意：String类的valueOf方法可以把任意类型的数据转成字符串。
+	 * 
+	 * String toLowerCase():把字符串转成小写。(了解)
+	 * 
+	 * String toUpperCase():把字符串转成大写。
+	 * 
+	 * String concat(String str):把字符串拼接。
 	 */
-	
+
 	public static void main(String[] args) {
 		// demo1();
 		// demo2();
 		// demo3();
+		demo4();
+	}
+
+	private static void demo4() {
 		String s1 = "heiMA";
 		String s2 = "chengxuYUAN";
 		String s3 = s1.toLowerCase();
@@ -68,7 +75,7 @@ public class Demo6_StringMethod {
 		byte[] arr2 = s2.getBytes(); // 通过gbk码表将字符串转换成字节数组
 		for (int i = 0; i < arr2.length; i++) { // 编码:把我们看的懂转换为计算机看的懂得
 			// System.out.print(arr2[i] + " "); //gbk码表一个中文代表两个字节
-		} // gbk码表特点,中文的第一个字节肯定是负数
+		}   // gbk码表特点,中文的第一个字节肯定是负数
 
 		String s3 = "琲";
 		byte[] arr3 = s3.getBytes();

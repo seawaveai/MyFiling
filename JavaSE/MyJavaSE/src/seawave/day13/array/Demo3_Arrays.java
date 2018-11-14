@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 public class Demo3_Arrays {
 
-	/**
- 	* public static String toString(int[] a)
-	* public static void sort(int[] a)
-	* public static int binarySearch(int[] a,int key)
-	* 
-	*  public static String toString(int[] a) {
+	/***
+ 	 public static String toString(int[] a)
+	 public static void sort(int[] a)
+     public static int binarySearch(int[] a,int key)
+	
+	 public static String toString(int[] a) {
 	        if (a == null)								//如果传入的数组是null
 	            return "null";							//返回null
 	        int iMax = a.length - 1;					//iMax最大索引
@@ -27,7 +27,7 @@ public class Demo3_Arrays {
 		}
 		
 	 private static int binarySearch0(int[] a, int fromIndex, int toIndex,
-                                 int key) {
+                                int key) {
 	        int low = fromIndex;				//最小索引0
 	        int high = toIndex - 1;				//最大索引数组长度-1
 	
@@ -49,8 +49,8 @@ public static void main(String[] args) {
 	int[] arr = {33,22,11,44,66,55};
 	System.out.println(Arrays.toString(arr));			//数组转字符串
 	
-	Arrays.sort(arr);									//排序
-	System.out.println(Arrays.toString(arr));
+		Arrays.sort(arr); // 排序
+		System.out.println(Arrays.toString(arr));
 	
 	int[] arr2 = {11,22,33,44,55,66};
 	System.out.println(Arrays.binarySearch(arr2, 22));

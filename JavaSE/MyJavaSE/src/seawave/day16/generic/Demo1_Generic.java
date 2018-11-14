@@ -22,6 +22,7 @@ public class Demo1_Generic {
 		// int[] arr = new byte[5]; //数组要保证前后的数据类型一致
 		// ArrayList<Object> list = new ArrayList<Person>(); //集合的泛型要保证前后的数据类型一致
 		// ArrayList<Object> list = new ArrayList<>(); //1.7版本的新特性,菱形泛型
+		
 		ArrayList<Object> list = new ArrayList<>(); // 泛型最好不要定义成Object,没有意义
 		list.add("aaa");
 		list.add(true);

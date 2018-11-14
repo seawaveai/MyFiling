@@ -19,7 +19,7 @@ interface Inter<T> {
 	public void show(T t);
 }
 
-/*class Demo implements Inter<String> {		//推荐用这种
+/*class Demo implements Inter<String> {	//推荐用这种
 
 	@Override
 	public void show(String t) {
@@ -28,7 +28,7 @@ interface Inter<T> {
 	
 }*/
 
-class Demo<T> implements Inter<T> {			//没有必要在实现接口的时候给自己类加泛型
+class Demo<T> implements Inter<T> {	   //没有必要在实现接口的时候给自己类加泛型
 
 	@Override
 	public void show(T t) {

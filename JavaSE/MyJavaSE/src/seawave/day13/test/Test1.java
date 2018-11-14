@@ -32,7 +32,6 @@ public class Test1 {
 		StringBuffer sb = new StringBuffer();				//创建字符串缓冲区对象
 		sb.append("[");										//将[添加到缓冲区
 		
-		
 		//{1,2,3}
 		for (int i = 0; i < arr.length; i++) {				//遍历数组
 			//sb.append(arr[i] + ", ");						//这样做没有]

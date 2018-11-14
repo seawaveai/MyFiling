@@ -15,7 +15,9 @@ public class Demo4_ArrayCopy {
 	 */
 	public static void main(String[] args) throws IOException {
 		//demo1();
+		
 		//demo2();
+		
 		FileInputStream fis = new FileInputStream("致青春.mp3");
 		FileOutputStream fos = new FileOutputStream("copy.mp3");
 		

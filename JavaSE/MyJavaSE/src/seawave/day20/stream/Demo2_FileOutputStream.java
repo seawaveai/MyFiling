@@ -14,6 +14,7 @@ public class Demo2_FileOutputStream {
 	 */
 	public static void main(String[] args) throws IOException {
 		//demo1();
+		
 		FileOutputStream fos = new FileOutputStream("yyy.txt",true);	//如果想续写就在第二个参数传true
 		fos.write(97);
 		fos.write(98);

@@ -46,6 +46,7 @@ public class Demo1_HashSet {
 		for (String string : hs) {								//只要能用迭代器迭代的,就可以使用增强for循环遍历
 			System.out.print(string+" ");
 		}
+		System.out.println();
 	}
 
 }

@@ -8,7 +8,8 @@ public class Demo4_LinkedList {
 	 * 用LinkedList模拟栈结构
 	 */
 	public static void main(String[] args) {
-		//demo1();
+		demo1();
+		
 		Stack s = new Stack();
 		s.in("a");								//进栈
 		s.in("b");

@@ -38,10 +38,10 @@ public class Demo3_String {
 	}
 
 	private static void demo5() {
-		String s1 = "ab";
-		String s2 = "abc";
-		String s3 = s1 + "c";
-		System.out.println(s3 == s2);
+		String s1 = "ab"; //常量池
+		String s2 = "abc"; //常量池
+		String s3 = s1 + "c"; //实现+,是堆栈里的
+		System.out.println(s3 == s2); //false
 		System.out.println(s3.equals(s2)); // true
 	}
 
@@ -61,7 +61,7 @@ public class Demo3_String {
 	}
 
 	private static void demo2() {
-		// 创建几个对象
+		// 创建几个对象?
 		// 创建两个对象,一个在常量池中,一个在堆内存中
 		String s1 = new String("abc");
 		System.out.println(s1);

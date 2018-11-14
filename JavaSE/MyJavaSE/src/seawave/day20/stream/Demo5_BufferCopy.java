@@ -19,6 +19,7 @@ public class Demo5_BufferCopy {
 	 */
 	public static void main(String[] args) throws IOException {
 		//demo1();
+		
 		//flush和close方法的区别
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream("致青春.mp3"));
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("copy.mp3"));

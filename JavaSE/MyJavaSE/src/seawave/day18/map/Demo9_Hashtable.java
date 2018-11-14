@@ -24,12 +24,18 @@ public class Demo9_Hashtable {
 		hm.put("李四", null);
 		System.out.println(hm);
 		
-		/*Hashtable<String, Integer> ht = new Hashtable<>();
-		//ht.put(null, 23);
-		ht.put("张三", null);
-		System.out.println(ht);*/
+		System.out.println("--------------");
 		
-		System.out.println("1111111111111");
+		Hashtable<String, Integer> ht = new Hashtable<>();
+		try {
+			ht.put(null, 23);//报错
+			ht.put("张三", null);//报错
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(ht);
+		
+	
 	}
 
 }

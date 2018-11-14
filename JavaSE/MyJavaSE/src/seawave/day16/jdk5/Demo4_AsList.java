@@ -11,8 +11,11 @@ public class Demo4_AsList {
 	 * 数组转换成集合虽然不能增加或减少元素,但是可以用集合的思想操作数组,也就是说可以使用其他集合中的方法
 	 */
 	public static void main(String[] args) {
+		
 		//demo1();
+		
 		//demo2();
+		
 		//集合转数组,加泛型的
 		ArrayList<String> list = new ArrayList<>();
 		list.add("a");

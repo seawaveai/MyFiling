@@ -33,6 +33,7 @@ public class Demo2_Collection {
 	 */
 	public static void main(String[] args) {
 		//demo1();
+		
 		Collection c = new ArrayList();		
 		c.add("a");
 		c.add("b");
