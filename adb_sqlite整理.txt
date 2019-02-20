@@ -32,8 +32,10 @@
 	1° adb remount
 	2° adb push  ***(文件)  system/framework/(把文件services.jar放进system/framework/)
 	3° adb reboot   			
+----------------------------------------------------
+----------------------------------------------------
 ----------------------------------------------------								
-## 操作sqlite
+## 操作App里的sqlite
 	adb shell /cd (数据库文件所在的位置)
 	# sqlite3 name.db (操作数据库)
 	> .table 
@@ -43,11 +45,13 @@
 
 	//> chcp 65001 (change current age,可以改DOS下的编码为utf-8)
 	
-# 每个SQLite数据库中都还有一个隐藏的sqlite_master表，这里记载了当前数据库中所有表的建表语句，
- 可以使用select * from sqlite_master命令进行查看,
- 可以使用where进行过滤:select * from sqlite_master where name='EHR_Person';	
+# sqlite_master的使用 {每个SQLite数据库中都还有一个隐藏的sqlite_master表,这里记载了当前数据库中所有表的建表语句:}
+  可以使用命令进行查看:select * from sqlite_master;
+  可以使用where进行过滤:select * from sqlite_master where name='EHR_Person';	
+  获取所有表名:select name from sqlite_master where type='table' order by name;
+  判断某表是否存在:select count(1) from sqlite_master where name='EHR_Person';(count(1)数据大于0)
  
-# SQLite中可以使用pragma table_info(TABLE_NAME)这个命令来查看表的数据结构, 输入.mode line命令切换显示模式
+# SQLite中可以使用:pragma table_info(TABLE_NAME);这个命令来查看表的数据结构, 输入.mode line命令切换显示模式
 
 	
 	
