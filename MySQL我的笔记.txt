@@ -38,14 +38,15 @@ root  root(设置的密码和账户)
 				birthday date not null,
 				age int not null
 			);	
-						
-		 * desc employee; //describe表的数据结构 sqlite用:pragma table_info(employee)
-		 * show tables;	   //查看所有表
-		 * drop employee;  //删除表
+		 * show tables;	   //查看当前数据库所有的表				
+		 * desc employee;  //describe表的数据结构{sqlite用:pragma table_info(employee)}
+		 * show create table employee; //查看建表语句{sqlite用:sqlite_master}
+		 * drop table employee;  //删除表
 		 * rename table employee to user; //修改表名
 		   alter table teacher rename to student;
 						
-		 * alter table employee add image varchar(50) null;		//增加字段
+		 * alter table employee add image varchar(50) null; (添加的列为Null)//增加字段
+		 * alter table employee add image varchar(50) not null;(添加的列为空)
 		 * alter table employee drop salary;					//删除字段
 		 * alter table employee modify name varchar(10);		//改字段的类型
 		 * alter table employee change name UseName varchar(50);//修改字段名
@@ -92,13 +93,16 @@ root  root(设置的密码和账户)
 			$ 条件的并列:
 				* and , or ,not
 	4.5【MySQL中的类型
-		Java中的类型			MySQL中的类型
+		Java中的类型:			MySQL中的类型:
 		byte,short,int,long		tinyint,smallint,int,bigint      	(4)(6)(11)(20)
 		float,double			float,double
-		boolean					bit 								tinyint(1)
-		char,String				char,varchar(字符串)					
+		boolean					tinyint(1)/bit/char(1) 								
+		char,String				char,varchar(xx)					
 		Date					date,time,datetime,timestamp。
-					
+				
+		(大多数数据库实现并没有一个严格意义的boolean类型,而是代之以各自的实现方法.MySQL拥有boolean类型,但实质上与其现有的binyint
+		类型相同,oracle倾向于让用户使用char(1)值来代替布尔值,而SQL Server则使用bit来代替.)		
+				
 	4.6【查询语句的总结
 		查询的语句是变化最多的语句。结构如下：
 			Select … From … where … group by … having … order by …;
