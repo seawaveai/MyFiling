@@ -1,8 +1,8 @@
 root  root(设置的密码和账户)	
 								#### MySQL笔记 ####								
 ##工具					
-     1.	Navicat Premium				
-	 2. SQLite Expert Professional
+     1.	Navicat Premium					
+	 2. SQLite Expert Professional(看sqlite)	
 	 3. SQLyog-8.32(sn)
 																			
 1. my.ini文件下的两个路径
@@ -26,12 +26,12 @@ root  root(设置的密码和账户)
 		4. show create database db1;	//查看数据库db1的建库的信息							
 		5. create database 数据库名称 [character set 字符集 collate 校对规则];							
 		6. alter database 数据库名称 character set 字符集 collate 校对规则;								
-		7. drop database if exists数据库名;						
+		7. drop database if exists 数据库名;						
 							
 	 #数据库中的表操作 
 		 *  create database db1;     //建数据库
-		    use db1            		 //使用这个数据库	
-			create table employee(   //创建表
+		    use db1;   //使用这个数据库	
+			create table employee(  //创建表
 				id int primary key auto_increment,
 				name varchar(20) unique,
 				salary double not null,
@@ -41,7 +41,7 @@ root  root(设置的密码和账户)
 		 * show tables;	   //查看当前数据库所有的表				
 		 * desc employee;  //describe表的数据结构{sqlite用:pragma table_info(employee)}
 		 * show create table employee; //查看建表语句{sqlite用:sqlite_master}
-		 * drop table employee;  //删除表
+		 * drop table employee;  //删除表(drop table if exists employee;)
 		 * rename table employee to user; //修改表名
 		   alter table teacher rename to student;
 						
